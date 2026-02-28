@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flipkart — India's #1 Online Shopping Site</title>
+    <link rel="stylesheet" href="style.css" />
+
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header>
+      <div class="header-top">
+        <!-- Logo -->
+        <a href="#" class="logo">
+          <span class="logo-text">Flipkart</span>
+          <span class="logo-tagline">Explore <span>Plus</span> &#9733;</span>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search for products, brands and more"
+            onkeydown="handleSearchKey(event)"
+          />
+          <button onclick="handleSearch()" aria-label="Search">
+            &#128269;
+          </button>
+        </div>
+
+        <!-- Actions -->
+        <div class="header-actions">
+          <button class="btn-login" onclick="toggleLoginModal()">Login</button>
+          <span class="header-link seller">Become a Seller</span>
+          <span class="header-link">&#128276; More</span>
+          <span class="cart-btn" onclick="showToast('Your cart is empty')">
+            &#128722;
+            <span>Cart</span>
+            <span id="cart-count" class="cart-count" style="display:none">0</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== CATEGORY NAV ===== -->
+    <nav class="category-nav">
+      <div class="category-nav-inner">
+        <div class="category-item active">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMzg4ZTNjIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn5uSPC90ZXh0Pjwvc3ZnPg=="
+            alt="Grocery"
+          />
+          <span>Grocery</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTU2NWMwIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn5OxPC90ZXh0Pjwvc3ZnPg=="
+            alt="Mobiles"
+          />
+          <span>Mobiles</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZTkxZTYzIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn5GXPC90ZXh0Pjwvc3ZnPg=="
+            alt="Fashion"
+          />
+          <span>Fashion</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmY4ZjAwIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn5KhPC90ZXh0Pjwvc3ZnPg=="
+            alt="Electronics"
+          />
+          <span>Electronics</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjNWQ0MDM3IiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn4+gPC90ZXh0Pjwvc3ZnPg=="
+            alt="Home &amp; Furniture"
+          />
+          <span>Home &amp; Furniture</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDI3N2JkIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn6e6PC90ZXh0Pjwvc3ZnPg=="
+            alt="Appliances"
+          />
+          <span>Appliances</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDA4MzhmIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7inIjvuI88L3RleHQ+PC9zdmc+"
+            alt="Travel"
+          />
+          <span>Travel</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjYzIxODViIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn5KEPC90ZXh0Pjwvc3ZnPg=="
+            alt="Beauty"
+          />
+          <span>Beauty, Toys &amp; More</span>
+        </div>
+        <div class="category-item">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMzc0NzRmIiByeD0iOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI1Ij7wn4+N77iPPC90ZXh0Pjwvc3ZnPg=="
+            alt="Two Wheelers"
+          />
+          <span>Two Wheelers</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== BANNER SLIDER ===== -->
+    <section class="banner-section">
+      <div class="banner-slider">
+        <div class="slides">
+          <!-- Slide 1 -->
+          <div class="slide slide-1">
+            <div class="slide-decoration"></div>
+            <div class="slide-content">
+              <h2>&#9889; Big Billion Days Sale</h2>
+              <p>Up to 80% off on Electronics, Fashion &amp; More</p>
+              <button class="slide-btn" onclick="showToast('Sale is live! Start shopping.')">Shop Now</button>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="slide slide-2">
+            <div class="slide-decoration"></div>
+            <div class="slide-content">
+              <h2>&#128722; Super Value Deals</h2>
+              <p>Exclusive offers on top brands every day</p>
+              <button class="slide-btn" onclick="showToast('Explore deals now!')">Explore Deals</button>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="slide slide-3">
+            <div class="slide-decoration"></div>
+            <div class="slide-content">
+              <h2>&#127807; Fresh Grocery Deals</h2>
+              <p>Order fresh vegetables, fruits &amp; dairy at best prices</p>
+              <button class="slide-btn" onclick="showToast('Order fresh groceries!')">Order Now</button>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="slide slide-4">
+            <div class="slide-decoration"></div>
+            <div class="slide-content">
+              <h2>&#128241; New Mobiles &amp; Gadgets</h2>
+              <p>Latest smartphones with easy EMI options</p>
+              <button class="slide-btn" onclick="showToast('Check out the latest mobiles!')">View Mobiles</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <button class="slider-btn slider-prev" onclick="prevSlide()">&#10094;</button>
+        <button class="slider-btn slider-next" onclick="nextSlide()">&#10095;</button>
+
+        <!-- Dots -->
+        <div class="slider-dots">
+          <div class="dot active" onclick="goToSlide(0)"></div>
+          <div class="dot" onclick="goToSlide(1)"></div>
+          <div class="dot" onclick="goToSlide(2)"></div>
+          <div class="dot" onclick="goToSlide(3)"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEALS OF THE DAY ===== -->
+    <section class="section">
+      <div class="card">
+        <div class="section-header">
+          <h2 class="section-title">&#128293; Deals of the Day</h2>
+          <button class="view-all-btn" onclick="showToast('Loading all deals...')">VIEW ALL</button>
+        </div>
+        <div class="products-row">
+          <!-- Product 1 -->
+          <div class="product-card" onclick="addToCart('Samsung Galaxy A54')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzE1NjVjMCIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+TsTwvdGV4dD48L3N2Zz4="
+              alt="Samsung Galaxy A54"
+            />
+            <div class="product-name">Samsung Galaxy A54</div>
+            <div>
+              <span class="product-price">&#8377;28,999</span>
+              <span class="product-original-price">&#8377;38,999</span>
+            </div>
+            <div class="product-discount">25% off</div>
+          </div>
+          <!-- Product 2 -->
+          <div class="product-card" onclick="addToCart('Apple iPhone 14')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzM3NDc0ZiIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+TsTwvdGV4dD48L3N2Zz4="
+              alt="Apple iPhone 14"
+            />
+            <div class="product-name">Apple iPhone 14</div>
+            <div>
+              <span class="product-price">&#8377;64,900</span>
+              <span class="product-original-price">&#8377;79,900</span>
+            </div>
+            <div class="product-discount">18% off</div>
+          </div>
+          <!-- Product 3 -->
+          <div class="product-card" onclick="addToCart('boAt Rockerz 450')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2FkMTQ1NyIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+OpzwvdGV4dD48L3N2Zz4="
+              alt="boAt Rockerz 450"
+            />
+            <div class="product-name">boAt Rockerz 450</div>
+            <div>
+              <span class="product-price">&#8377;1,299</span>
+              <span class="product-original-price">&#8377;4,990</span>
+            </div>
+            <div class="product-discount">73% off</div>
+          </div>
+          <!-- Product 4 -->
+          <div class="product-card" onclick="addToCart('Nike Air Max 270')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2JmMzYwYyIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+RnzwvdGV4dD48L3N2Zz4="
+              alt="Nike Air Max 270"
+            />
+            <div class="product-name">Nike Air Max 270</div>
+            <div>
+              <span class="product-price">&#8377;7,995</span>
+              <span class="product-original-price">&#8377;12,995</span>
+            </div>
+            <div class="product-discount">38% off</div>
+          </div>
+          <!-- Product 5 -->
+          <div class="product-card" onclick="addToCart('HP Pavilion Laptop')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzI4MzU5MyIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+SuzwvdGV4dD48L3N2Zz4="
+              alt="HP Pavilion Laptop"
+            />
+            <div class="product-name">HP Pavilion Laptop</div>
+            <div>
+              <span class="product-price">&#8377;52,990</span>
+              <span class="product-original-price">&#8377;75,000</span>
+            </div>
+            <div class="product-discount">29% off</div>
+          </div>
+          <!-- Product 6 -->
+          <div class="product-card" onclick="addToCart('LG 43-inch Smart TV')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzM3NDc0ZiIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+TujwvdGV4dD48L3N2Zz4="
+              alt="LG Smart TV"
+            />
+            <div class="product-name">LG 43&quot; Smart TV</div>
+            <div>
+              <span class="product-price">&#8377;29,990</span>
+              <span class="product-original-price">&#8377;44,990</span>
+            </div>
+            <div class="product-discount">33% off</div>
+          </div>
+          <!-- Product 7 -->
+          <div class="product-card" onclick="addToCart('Levi\'s 511 Slim Jeans')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzBkNDdhMSIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+RljwvdGV4dD48L3N2Zz4="
+              alt="Levi's Jeans"
+            />
+            <div class="product-name">Levi&apos;s 511 Slim Jeans</div>
+            <div>
+              <span class="product-price">&#8377;1,679</span>
+              <span class="product-original-price">&#8377;3,499</span>
+            </div>
+            <div class="product-discount">52% off</div>
+          </div>
+          <!-- Product 8 -->
+          <div class="product-card" onclick="addToCart('Sony WH-1000XM5')">
+            <img
+              class="product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzIxMjEyMSIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI0OCI+8J+OpzwvdGV4dD48L3N2Zz4="
+              alt="Sony WH-1000XM5"
+            />
+            <div class="product-name">Sony WH-1000XM5</div>
+            <div>
+              <span class="product-price">&#8377;24,990</span>
+              <span class="product-original-price">&#8377;34,990</span>
+            </div>
+            <div class="product-discount">28% off</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OFFER BANNERS ===== -->
+    <section class="section">
+      <div class="offer-banners">
+        <div class="offer-banner offer-banner-1" onclick="showToast('Explore fashion deals!')">
+          <div class="offer-banner-content">
+            <div>&#128084; Fashion Week</div>
+            <p>Min 50% off on top brands</p>
+          </div>
+        </div>
+        <div class="offer-banner offer-banner-2" onclick="showToast('Check out home & kitchen deals!')">
+          <div class="offer-banner-content">
+            <div>&#127968; Home &amp; Kitchen</div>
+            <p>Starting at &#8377;99 only</p>
+          </div>
+        </div>
+        <div class="offer-banner offer-banner-3" onclick="showToast('Fresh grocery savings!')">
+          <div class="offer-banner-content">
+            <div>&#127822; Fresh &amp; Organic</div>
+            <p>Free delivery on first order</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOP PICKS FOR YOU ===== -->
+    <section class="section">
+      <div class="card">
+        <div class="section-header">
+          <h2 class="section-title">&#127942; Top Picks for You</h2>
+          <button class="view-all-btn" onclick="showToast('Loading top picks...')">VIEW ALL</button>
+        </div>
+        <div class="products-grid">
+          <!-- Product A -->
+          <div class="grid-product-card">
+            <img
+              class="grid-product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2JmMzYwYyIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1NiI+8J+TsTwvdGV4dD48L3N2Zz4="
+              alt="OnePlus 12R"
+            />
+            <div class="grid-product-name">OnePlus 12R 5G (256 GB)</div>
+            <div class="grid-product-rating">4.3 &#9733;</div>
+            <div class="grid-product-price">&#8377;39,999</div>
+            <div>
+              <span class="grid-product-original">&#8377;49,999</span>
+              <span class="grid-product-discount"> 20% off</span>
+            </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('OnePlus 12R 5G')">Add to Cart</button>
+          </div>
+          <!-- Product B -->
+          <div class="grid-product-card">
+            <img
+              class="grid-product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iIzQ1NWE2NCIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1NiI+8J+SuzwvdGV4dD48L3N2Zz4="
+              alt="MacBook Air M2"
+            />
+            <div class="grid-product-name">Apple MacBook Air M2</div>
+            <div class="grid-product-rating">4.7 &#9733;</div>
+            <div class="grid-product-price">&#8377;1,09,900</div>
+            <div>
+              <span class="grid-product-original">&#8377;1,19,900</span>
+              <span class="grid-product-discount"> 8% off</span>
+            </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('Apple MacBook Air M2')">Add to Cart</button>
+          </div>
+          <!-- Product C -->
+          <div class="grid-product-card">
+            <img
+              class="grid-product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iIzAyNzdiZCIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1NiI+8J+nijwvdGV4dD48L3N2Zz4="
+              alt="Samsung Refrigerator"
+            />
+            <div class="grid-product-name">Samsung 253 L Frost Free Refrigerator</div>
+            <div class="grid-product-rating">4.4 &#9733;</div>
+            <div class="grid-product-price">&#8377;26,490</div>
+            <div>
+              <span class="grid-product-original">&#8377;38,490</span>
+              <span class="grid-product-discount"> 31% off</span>
+            </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('Samsung Refrigerator')">Add to Cart</button>
+          </div>
+          <!-- Product D -->
+          <div class="grid-product-card">
+            <img
+              class="grid-product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iIzZhMWI5YSIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1NiI+4oyaPC90ZXh0Pjwvc3ZnPg=="
+              alt="Noise ColorFit Pro"
+            />
+            <div class="grid-product-name">Noise ColorFit Pro 4 Smartwatch</div>
+            <div class="grid-product-rating">4.2 &#9733;</div>
+            <div class="grid-product-price">&#8377;2,999</div>
+            <div>
+              <span class="grid-product-original">&#8377;7,999</span>
+              <span class="grid-product-discount"> 62% off</span>
+            </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('Noise ColorFit Pro 4')">Add to Cart</button>
+          </div>
+          <!-- Product E -->
+          <div class="grid-product-card">
+            <img
+              class="grid-product-img"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iIzI2MzIzOCIgcng9IjgiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1NiI+8J+TtzwvdGV4dD48L3N2Zz4="
+              alt="Canon EOS M50"
+            />
+            <div class="grid-product-name">Canon EOS M50 Mark II Camera</div>
+            <div class="grid-product-rating">4.6 &#9733;</div>
+            <div class="grid-product-price">&#8377;54,995</div>
+            <div>
+              <span class="grid-product-original">&#8377;67,995</span>
+              <span class="grid-product-discount"> 19% off</span>
+            </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('Canon EOS M50 Mark II')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="section">
+      <div class="card">
+        <div class="section-header">
+          <h2 class="section-title">&#127873; Shop by Category</h2>
+        </div>
+        <div class="categories-grid">
+          <div class="category-card" onclick="showToast('Browse Mobiles')">
+            <div class="category-card-img">&#128241;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Mobiles &amp; Accessories</div>
+              <div class="category-card-subtitle">From &#8377;499 onwards</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Electronics')">
+            <div class="category-card-img">&#128187;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Electronics</div>
+              <div class="category-card-subtitle">Laptops, Cameras &amp; More</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Fashion')">
+            <div class="category-card-img">&#128084;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Fashion</div>
+              <div class="category-card-subtitle">Clothes, Shoes &amp; More</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Home & Furniture')">
+            <div class="category-card-img">&#127968;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Home &amp; Furniture</div>
+              <div class="category-card-subtitle">Decor, Appliances &amp; More</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Beauty & Health')">
+            <div class="category-card-img">&#128138;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Beauty &amp; Health</div>
+              <div class="category-card-subtitle">Skincare, Wellness &amp; More</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Grocery')">
+            <div class="category-card-img">&#127822;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Grocery</div>
+              <div class="category-card-subtitle">Fresh &amp; Everyday Essentials</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Books')">
+            <div class="category-card-img">&#128218;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Books &amp; Stationery</div>
+              <div class="category-card-subtitle">Fiction, Non-fiction &amp; More</div>
+            </div>
+          </div>
+          <div class="category-card" onclick="showToast('Browse Toys')">
+            <div class="category-card-img">&#129529;</div>
+            <div class="category-card-body">
+              <div class="category-card-title">Toys &amp; Baby</div>
+              <div class="category-card-subtitle">Fun for all ages</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Flipkart Stories</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Corporate Information</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Payments</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Cancellation &amp; Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Report Infringement</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Policy</h4>
+          <ul>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Sitemap</a></li>
+            <li><a href="#">EPR Compliance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Social</h4>
+          <ul>
+            <li><a href="#">&#128247; Instagram</a></li>
+            <li><a href="#">&#128248; Twitter</a></li>
+            <li><a href="#">&#127789; Facebook</a></li>
+            <li><a href="#">&#127916; YouTube</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Mail Us</h4>
+          <ul>
+            <li>
+              <a href="#">
+                Flipkart Internet Private Limited,<br />
+                Buildings Alyssa, Begonia &amp;<br />
+                Clove Embassy Tech Village,<br />
+                Outer Ring Road, Devarabeesanahalli Village,<br />
+                Bengaluru, 560103, Karnataka, India
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <p>&copy; 2007–2025 Flipkart.com — A Walmart Company</p>
+          <div class="payment-icons">
+            <span class="payment-icon">VISA</span>
+            <span class="payment-icon">MC</span>
+            <span class="payment-icon">UPI</span>
+            <span class="payment-icon">COD</span>
+            <span class="payment-icon">EMI</span>
+            <span class="payment-icon">AMEX</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div
+      id="login-modal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      "
+      onclick="if(event.target===this) toggleLoginModal()"
+    >
+      <div
+        style="
+          background: #fff;
+          border-radius: 4px;
+          overflow: hidden;
+          display: flex;
+          width: 720px;
+          max-width: 95vw;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        "
+      >
+        <!-- Left Panel -->
+        <div
+          style="
+            background: #2874f0;
+            color: #fff;
+            padding: 40px 32px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
+          <div>
+            <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 12px;">Login</h2>
+            <p style="font-size: 14px; opacity: 0.85; line-height: 1.6;">
+              Get access to your Orders, Wishlist and Recommendations
+            </p>
+          </div>
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzFhNWZkNCIgcng9IjEyIi8+PHRleHQgeD0iNTAlIiB5PSIzNSUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNjQiPvCfm43vuI88L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MiUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9IjYwMCI+U2hvcCBTbWFydGVyPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNzUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEzIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOCkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+TWlsbGlvbnMgb2YgcHJvZHVjdHM8L3RleHQ+PC9zdmc+"
+            alt="Login illustration"
+            style="width: 100%; max-width: 180px; margin-top: 24px;"
+          />
+        </div>
+        <!-- Right Panel -->
+        <div style="flex: 1; padding: 40px 32px;">
+          <form onsubmit="handleLogin(event)">
+            <div style="margin-bottom: 20px;">
+              <input
+                id="login-email"
+                type="text"
+                placeholder="Enter Email/Mobile number"
+                required
+                style="
+                  width: 100%;
+                  border: none;
+                  border-bottom: 2px solid #e0e0e0;
+                  padding: 10px 0;
+                  font-size: 15px;
+                  outline: none;
+                  color: #212121;
+                "
+              />
+            </div>
+            <div style="margin-bottom: 24px;">
+              <input
+                id="login-pass"
+                type="password"
+                placeholder="Enter Password"
+                style="
+                  width: 100%;
+                  border: none;
+                  border-bottom: 2px solid #e0e0e0;
+                  padding: 10px 0;
+                  font-size: 15px;
+                  outline: none;
+                  color: #212121;
+                "
+              />
+            </div>
+            <p style="font-size: 12px; color: #878787; margin-bottom: 20px;">
+              By continuing, you agree to Flipkart's
+              <a href="#" style="color: #2874f0;">Terms of Use</a> and
+              <a href="#" style="color: #2874f0;">Privacy Policy</a>.
+            </p>
+            <button
+              type="submit"
+              style="
+                width: 100%;
+                background: #fb641b;
+                color: #fff;
+                border: none;
+                padding: 14px;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 4px;
+                cursor: pointer;
+                letter-spacing: 0.5px;
+              "
+            >
+              Login
+            </button>
+          </form>
+          <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #2874f0; cursor: pointer; font-weight: 600;">
+            New to Flipkart? Create an account
+          </p>
+          <button
+            onclick="toggleLoginModal()"
+            style="
+              position: absolute;
+              top: 12px;
+              right: 16px;
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: #878787;
+            "
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
